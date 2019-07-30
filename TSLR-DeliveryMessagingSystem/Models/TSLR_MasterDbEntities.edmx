@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TSLR_MasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="BuildingId" />
+          </Key>
+          <Property Name="BuildingId" Type="int" Nullable="false" />
+          <Property Name="Building No" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Company Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Company Contact" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CustomMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CustomMessage" Type="text" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="DateTimeStamp" Type="datetime" />
+          <Property Name="MessageStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Body" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="StudentDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Building No" Type="nvarchar" MaxLength="255" />
+          <Property Name="Room No " Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Email Address " Type="nvarchar" MaxLength="255" />
+          <Property Name="Contact Number " Type="nvarchar" MaxLength="255" />
+          <Property Name="University of Study " Type="nvarchar" MaxLength="255" />
+          <Property Name="Course " Type="nvarchar" MaxLength="255" />
+          <Property Name="Student ID " Type="nvarchar" MaxLength="50" />
+          <Property Name="BuildingId" Type="int" />
+          <Property Name="MessageId" Type="int" />
+          <Property Name="CompanyId" Type="int" />
+        </EntityType>
+        <Association Name="FK_CustomMessage_CustomMessageStudentFK">
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="0..1" />
+          <End Role="CustomMessage" Type="Self.CustomMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomMessage">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDetail_Building">
+          <End Role="Building" Type="Self.Building" Multiplicity="0..1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="BuildingId" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="BuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDetail_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDetail_Message">
+          <End Role="Message" Type="Self.Message" Multiplicity="0..1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TSLR_MasterModelStoreContainer">
+          <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomMessage" EntityType="Self.CustomMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentDetail" EntityType="Self.StudentDetail" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CustomMessage_CustomMessageStudentFK" Association="Self.FK_CustomMessage_CustomMessageStudentFK">
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+            <End Role="CustomMessage" EntitySet="CustomMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDetail_Building" Association="Self.FK_StudentDetail_Building">
+            <End Role="Building" EntitySet="Building" />
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDetail_Company" Association="Self.FK_StudentDetail_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDetail_Message" Association="Self.FK_StudentDetail_Message">
+            <End Role="Message" EntitySet="Message" />
+            <End Role="StudentDetail" EntitySet="StudentDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TSLR_MasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="BuildingId" />
+          </Key>
+          <Property Name="BuildingId" Type="Int32" Nullable="false" />
+          <Property Name="Building_No" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="StudentDetails" Relationship="Self.FK_StudentDetail_Building" FromRole="Building" ToRole="StudentDetail" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StudentDetails" Relationship="Self.FK_StudentDetail_Company" FromRole="Company" ToRole="StudentDetail" />
+        </EntityType>
+        <EntityType Name="CustomMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CustomMessage1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="MessageStatus" Type="Int32" />
+          <NavigationProperty Name="StudentDetail" Relationship="Self.FK_CustomMessage_CustomMessageStudentFK" FromRole="CustomMessage" ToRole="StudentDetail" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StudentDetails" Relationship="Self.FK_StudentDetail_Message" FromRole="Message" ToRole="StudentDetail" />
+        </EntityType>
+        <EntityType Name="StudentDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Building_No" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Room_No_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email_Address_" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Number_" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="University_of_Study_" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Course_" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Student_ID_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingId" Type="Int32" />
+          <Property Name="MessageId" Type="Int32" />
+          <Property Name="CompanyId" Type="Int32" />
+          <NavigationProperty Name="Building" Relationship="Self.FK_StudentDetail_Building" FromRole="StudentDetail" ToRole="Building" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_StudentDetail_Company" FromRole="StudentDetail" ToRole="Company" />
+          <NavigationProperty Name="CustomMessages" Relationship="Self.FK_CustomMessage_CustomMessageStudentFK" FromRole="StudentDetail" ToRole="CustomMessage" />
+          <NavigationProperty Name="Message" Relationship="Self.FK_StudentDetail_Message" FromRole="StudentDetail" ToRole="Message" />
+        </EntityType>
+        <Association Name="FK_StudentDetail_Building">
+          <End Role="Building" Type="Self.Building" Multiplicity="0..1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="BuildingId" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="BuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDetail_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomMessage_CustomMessageStudentFK">
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="0..1" />
+          <End Role="CustomMessage" Type="Self.CustomMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomMessage">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDetail_Message">
+          <End Role="Message" Type="Self.Message" Multiplicity="0..1" />
+          <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="MessageId" />
+            </Principal>
+            <Dependent Role="StudentDetail">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TSLR_MasterEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buildings" EntityType="Self.Building" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="CustomMessages" EntityType="Self.CustomMessage" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="StudentDetails" EntityType="Self.StudentDetail" />
+          <AssociationSet Name="FK_StudentDetail_Building" Association="Self.FK_StudentDetail_Building">
+            <End Role="Building" EntitySet="Buildings" />
+            <End Role="StudentDetail" EntitySet="StudentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDetail_Company" Association="Self.FK_StudentDetail_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="StudentDetail" EntitySet="StudentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomMessage_CustomMessageStudentFK" Association="Self.FK_CustomMessage_CustomMessageStudentFK">
+            <End Role="StudentDetail" EntitySet="StudentDetails" />
+            <End Role="CustomMessage" EntitySet="CustomMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDetail_Message" Association="Self.FK_StudentDetail_Message">
+            <End Role="Message" EntitySet="Messages" />
+            <End Role="StudentDetail" EntitySet="StudentDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TSLR_MasterModelStoreContainer" CdmEntityContainer="TSLR_MasterEntities1">
+          <EntitySetMapping Name="Buildings">
+            <EntityTypeMapping TypeName="TSLR_MasterModel.Building">
+              <MappingFragment StoreEntitySet="Building">
+                <ScalarProperty Name="BuildingId" ColumnName="BuildingId" />
+                <ScalarProperty Name="Building_No" ColumnName="Building No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="TSLR_MasterModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company Name" />
+                <ScalarProperty Name="Company_Contact" ColumnName="Company Contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomMessages">
+            <EntityTypeMapping TypeName="TSLR_MasterModel.CustomMessage">
+              <MappingFragment StoreEntitySet="CustomMessage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CustomMessage1" ColumnName="CustomMessage" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+                <ScalarProperty Name="MessageStatus" ColumnName="MessageStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="TSLR_MasterModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentDetails">
+            <EntityTypeMapping TypeName="TSLR_MasterModel.StudentDetail">
+              <MappingFragment StoreEntitySet="StudentDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Building_No" ColumnName="Building No" />
+                <ScalarProperty Name="Room_No_" ColumnName="Room No " />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email_Address_" ColumnName="Email Address " />
+                <ScalarProperty Name="Contact_Number_" ColumnName="Contact Number " />
+                <ScalarProperty Name="University_of_Study_" ColumnName="University of Study " />
+                <ScalarProperty Name="Course_" ColumnName="Course " />
+                <ScalarProperty Name="Student_ID_" ColumnName="Student ID " />
+                <ScalarProperty Name="BuildingId" ColumnName="BuildingId" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

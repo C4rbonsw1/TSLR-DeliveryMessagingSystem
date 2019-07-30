@@ -1,0 +1,103 @@
+﻿@model TSLR_DeliveryMessagingSystem.Models.StudentDetail
+
+@{
+    ViewBag.Title = "Delete";
+}
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>StudentDetail</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Building_No)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Building_No)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Room_No_)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Room_No_)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email_Address_)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email_Address_)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Contact_Number_)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Contact_Number_)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.University_of_Study_)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.University_of_Study_)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Course_)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Course_)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Student_ID_)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Student_ID_)
+            </dd>
+
+
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h1>Access Issue</h1>
+        <p class="lead">You need to be logged into your account </p>
+        <p><a href="/Account/Login" class="btn btn-primary btn-lg">Login &raquo;</a></p>
+    </div>
+}
+

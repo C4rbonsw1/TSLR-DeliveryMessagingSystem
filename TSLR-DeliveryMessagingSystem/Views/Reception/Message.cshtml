@@ -1,0 +1,89 @@
+﻿@model TSLR_DeliveryMessagingSystem.ViewModels.ReceptionVM
+
+@{
+    ViewBag.Title = "Message";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+
+    <h2>Message</h2>
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>StudentDetail</h4>
+        <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentDetail.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.StudentDetail.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentDetail.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentDetail.Building_No, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.StudentDetail.Building_No, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentDetail.Building_No, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentDetail.Room_No_, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.StudentDetail.Room_No_, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentDetail.Room_No_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentDetail.Contact_Number_, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.StudentDetail.Contact_Number_, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentDetail.Contact_Number_, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                &nbsp;<br />
+                &nbsp;<br />
+                &nbsp;<br />
+                &nbsp;<br />
+            </div>
+
+            <h4>Choose Company/Message</h4>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Company.Company_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Company.CompanyId, Model.ListCompany, "---Please Select A Company---")
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Message.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Message.MessageId, Model.ListMessage, "---Please Select A Message---")
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Send" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        }
+        }
+        else
+        {
+        <div class="jumbotron">
+            <h1>Access Issue</h1>
+            <p class="lead">You need to be logged into your account </p>
+            <p><a href="/Account/Login" class="btn btn-primary btn-lg">Login &raquo;</a></p>
+        </div>
+        }

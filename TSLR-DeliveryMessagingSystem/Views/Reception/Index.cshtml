@@ -1,0 +1,98 @@
+﻿@model IEnumerable<TSLR_DeliveryMessagingSystem.Models.StudentDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <p>
+        @using (Html.BeginForm("Index", "Reception", FormMethod.Get))
+        {
+            <b>Serach By:</b> @Html.RadioButton("serachBy", "Name", true) <text>Name</text>
+            @Html.RadioButton("serachBy", "Number") <text>Number</text><br />
+            @Html.TextBox("search") <input type="submit" value="Search" />
+        }
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Label("Bulding")
+            </th>
+            <th>
+                @Html.Label("Room")
+            </th>
+            <th>
+                @Html.Label("Name")
+            </th>
+            <th>
+                @Html.Label("Email Address")
+            </th>
+            <th>
+                @Html.Label("Contact Number")
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.University_of_Study_)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Course_)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student_ID_)
+                </th>*@
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Building_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Room_No_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email_Address_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact_Number_)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.University_of_Study_)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course_)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_ID_)
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Send SMS ||", "Message", new { id = item.Id })
+                    @Html.ActionLink("Edit Details ||", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <div class="jumbotron">
+        <h1>Access Issue</h1>
+        <p class="lead">You need to be logged into your account </p>
+        <p><a href="/Account/Login" class="btn btn-primary btn-lg">Login &raquo;</a></p>
+    </div>
+}

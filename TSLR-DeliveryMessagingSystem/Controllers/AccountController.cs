@@ -58,6 +58,10 @@ namespace TSLR_DeliveryMessagingSystem.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            if (Request.IsAuthenticated)
+            {
+                return Redirect("/Reception");
+            }
             return View();
         }
 
@@ -79,7 +83,7 @@ namespace TSLR_DeliveryMessagingSystem.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return Redirect("/Reception");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -137,7 +141,7 @@ namespace TSLR_DeliveryMessagingSystem.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult RegisterSecureTSLR()
         {
             return View();
         }
@@ -147,7 +151,7 @@ namespace TSLR_DeliveryMessagingSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> RegisterSecureTSLR(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
